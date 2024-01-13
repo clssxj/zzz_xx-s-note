@@ -1,0 +1,61 @@
+[2182. 构造限制重复的字符串 - 力扣（LeetCode）](https://leetcode.cn/problems/construct-string-with-repeat-limit/submissions/495267023/)
+思想：双指针，贪心。
+时间复杂度：O(n+26)
+空间复杂度：O(n+26)
+根据题意模拟即可
+code：
+class Solution {
+
+public:
+
+    string repeatLimitedString(string s, int repeatLimit) {
+
+        vector<int> count(26);
+
+        for (char c : s) {
+
+            count[c - 'a']++;
+
+        }
+
+        string ret;
+
+        int m = 0;
+
+        for (int i = 25, j = 24; i >= 0 && j >= 0;) {
+
+            if (count[i] == 0) {
+
+                m = 0;
+
+                i--;
+
+            } else if (m < repeatLimit) {
+
+                count[i]--;
+
+                ret.push_back('a' + i);
+
+                m++;
+
+            } else if (j >= i || count[j] == 0) {
+
+                j--;
+
+            } else {
+
+                count[j]--;
+
+                ret.push_back('a' + j);
+
+                m = 0;
+
+            }
+
+        }
+
+        return ret;
+
+    }
+
+};
